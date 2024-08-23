@@ -1,4 +1,4 @@
-package dev.razafindratelo.comments;
+package dev.razafindratelo.reviews;
 
 
 import dev.razafindratelo.customer.Customer;
@@ -7,7 +7,7 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public abstract class Comment {
+public abstract class Review {
     private String content;
     private Customer author;
 }

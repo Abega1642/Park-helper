@@ -1,6 +1,6 @@
 package dev.razafindratelo.places.hotel;
 
-import dev.razafindratelo.comments.Comment;
+import dev.razafindratelo.reviews.Review;
 import dev.razafindratelo.places.Place;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -17,7 +17,7 @@ public class Hotel extends Place {
     private String phoneNumber;
     private String email;
     private long score;
-    private List<Comment> comments;
+    private List<Review> reviews;
 
     public Hotel(
             String name,

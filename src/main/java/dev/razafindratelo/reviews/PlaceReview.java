@@ -1,4 +1,4 @@
-package dev.razafindratelo.comments;
+package dev.razafindratelo.reviews;
 
 import dev.razafindratelo.customer.Customer;
 import dev.razafindratelo.places.Place;
@@ -11,10 +11,10 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class PlaceComment extends Comment {
+public class PlaceReview extends Review {
     private Place commentedPlace;
 
-    public PlaceComment(String content, Customer author, Place commentedPlace) {
+    public PlaceReview(String content, Customer author, Place commentedPlace) {
         super(content, author);
         this.commentedPlace = commentedPlace;
     }
