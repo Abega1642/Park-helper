@@ -4,6 +4,7 @@ import dev.razafindratelo.map.Map;
 import dev.razafindratelo.places.Place;
 import dev.razafindratelo.places.hotel.Hotel;
 import dev.razafindratelo.places.hotel.Room;
+import dev.razafindratelo.places.park.Park;
 import dev.razafindratelo.reviews.PlaceReview;
 import dev.razafindratelo.reviews.Review;
 import dev.razafindratelo.reviews.RoomReview;
@@ -131,5 +132,34 @@ public class Customer {
             }
         }
         return places;
+    }
+
+    /**
+     *  Here is the implementation of the findCheapestHotelPrice
+     */
+
+    public double findCheapestHotelPrice(List<Park> parks) {
+        List<Hotel> hotels = new ArrayList<>();
+        List<List<Hotel>> hotelsList = parks
+                .stream()
+                .map(Park::getHotels)
+                .toList();
+
+        hotelsList.forEach(hotels::addAll);
+
+        hotels.sort(
+                Comparator.comparingDouble(
+                        hotel -> getTheCheapestRoom(hotel)
+                                .getPricePerNight())
+        );
+
+        return getTheCheapestRoom(hotels.getFirst()).getPricePerNight();
+    }
+
+    // this static method gets the cheapest room in a hotel
+    private static Room getTheCheapestRoom(Hotel hotels) {
+        List<Room> rooms = hotels.getRooms();
+        rooms.sort(Comparator.comparingDouble(Room::getPricePerNight));
+        return rooms.getFirst();
     }
 }
