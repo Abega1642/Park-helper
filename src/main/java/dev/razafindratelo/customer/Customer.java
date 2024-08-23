@@ -1,5 +1,6 @@
 package dev.razafindratelo.customer;
 
+import dev.razafindratelo.map.Map;
 import dev.razafindratelo.places.Place;
 import dev.razafindratelo.places.hotel.Hotel;
 import dev.razafindratelo.places.hotel.Room;
@@ -10,9 +11,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Data
 @AllArgsConstructor
@@ -72,9 +73,21 @@ public class Customer {
      *  Here is the implementation of the getAllReviews method
      */
 
-    public List<Review> getAllReviews() {
+    public List<Review> getAllReviews(Map map) {
         List<Review> reviews = new ArrayList<>();
-        return null;
+        for (Place place : map.getPlaces()) {
+            reviews.addAll(place.getReviews());
+            if (place instanceof Hotel hotel) {
+
+                List<RoomReview> roomReviews = new ArrayList<>();
+                List<List<RoomReview>> roomReviewsList = hotel.getRooms()
+                        .stream().map(Room::getRoomReviews)
+                        .toList();
+                roomReviewsList.forEach(roomReviews::addAll);
+                reviews.addAll(roomReviews);
+            }
+        }
+        return reviews;
     }
 
 }
