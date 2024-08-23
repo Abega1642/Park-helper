@@ -14,8 +14,8 @@ import lombok.ToString;
 public class PlaceReview extends Review {
     private Place commentedPlace;
 
-    public PlaceReview(String content, Customer author, Place commentedPlace) {
-        super(content, author);
+    public PlaceReview(String content, Customer author, Place commentedPlace, int score) {
+        super(content, author, score);
         this.commentedPlace = commentedPlace;
     }
 }

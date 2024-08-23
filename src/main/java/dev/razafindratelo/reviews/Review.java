@@ -15,10 +15,14 @@ public abstract class Review {
     private int score;
     private List<PlaceReview> reviews;
 
-    public Review(String content, Customer author) {
+    public Review(String content, Customer author, int score) {
         this.content = content;
         this.author = author;
-        this.score = 0;
+        if (score < 0 || score > 5) {
+            throw new IllegalArgumentException("Score must be between 0 and 5");
+        } else {
+            this.score = score;
+        }
         this.reviews = new ArrayList<>();
     }
 }

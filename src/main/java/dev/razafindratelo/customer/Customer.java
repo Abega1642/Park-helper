@@ -50,7 +50,7 @@ public class Customer {
 
     public Review addReview(String description,  int score, Place place) {
         List<PlaceReview> reviewsList = place.getReviews();
-        PlaceReview review = new PlaceReview(description, this, place);
+        PlaceReview review = new PlaceReview(description, this, place, score);
         reviewsList.add(review);
 
         place.setScore(place.getScore() + score);
@@ -62,10 +62,16 @@ public class Customer {
     // addReview to a room of a hotel with a predefined RoomReview
 
     public Review addReview(Hotel hotel, RoomReview roomReview) {
-        List<RoomReview> roomReviews = roomReview.getCommentedRoom().getRoomReviews();
-        roomReviews.add(roomReview);
-        roomReview.getCommentedRoom().setRoomReviews(roomReviews);
-        return roomReview;
+        if (hotel.getRooms().contains(roomReview.getCommentedRoom())) {
+
+            List<RoomReview> roomReviews = roomReview.getCommentedRoom().getRoomReviews();
+            roomReviews.add(roomReview);
+            roomReview.getCommentedRoom().setRoomReviews(roomReviews);
+            return roomReview;
+
+        } else {
+            throw  new IllegalArgumentException("There is no such room as :" + roomReview.getCommentedRoom());
+        }
     }
 
     // addReview to a room of a hotel by the description.
@@ -75,12 +81,14 @@ public class Customer {
 
         List<RoomReview> roomReviews = room.getRoomReviews();
 
-        RoomReview review = new RoomReview(description, this, room);
+        RoomReview review = new RoomReview(description, this, room, score);
         room.setScore(room.getScore() + score);
         roomReviews.add(review);
         room.setRoomReviews(roomReviews);
         return review;
+
     }
+
 
     /**
      *  Here is the implementation of the getAllReviews method
@@ -120,6 +128,7 @@ public class Customer {
         return hotels.getLast();
     }
 
+
     /**
      *  Here is the implementation of the getAllPlacesInside method
      */
@@ -144,6 +153,7 @@ public class Customer {
         }
         return places;
     }
+
 
     /**
      *  Here is the implementation of the findCheapestHotelPrice
@@ -174,6 +184,7 @@ public class Customer {
         return rooms.getFirst();
     }
 
+
     /**
      *  Here is the implementation of the getAllReviewedItems method
      */
@@ -185,6 +196,7 @@ public class Customer {
                 .filter(place -> !place.getReviews().isEmpty())
                 .toList();
         List<Room> rooms = new ArrayList<>();
+
         for (Place place : places) {
             if (place instanceof Hotel hotel) {
                 List<Room> roomsReviewedByEachHotel = hotel.getRooms()
@@ -194,6 +206,7 @@ public class Customer {
                 rooms.addAll(roomsReviewedByEachHotel);
             }
         }
+
         reviewedItems.addAll(rooms);
         reviewedItems.addAll(places);
 
