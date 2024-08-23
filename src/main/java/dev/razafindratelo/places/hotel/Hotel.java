@@ -3,10 +3,7 @@ package dev.razafindratelo.places.hotel;
 import dev.razafindratelo.places.park.Park;
 import dev.razafindratelo.reviews.Review;
 import dev.razafindratelo.places.Place;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 

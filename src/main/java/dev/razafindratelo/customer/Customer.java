@@ -12,7 +12,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 
 @Data
@@ -90,4 +92,20 @@ public class Customer {
         return reviews;
     }
 
+    /**
+     *  Here is the implementation of the findBestHotel method
+     */
+
+    public Hotel findBestHotel(Map map) {
+        List<Hotel> hotels = new ArrayList<>();
+
+        for (Place place : map.getPlaces()) {
+            if (place instanceof Hotel hotel) {
+                hotels.add(hotel);
+            }
+        }
+
+        hotels.sort(Comparator.comparing(hotel -> hotel.getParksAround().size()));
+        return hotels.getLast();
+    }
 }
