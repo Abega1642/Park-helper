@@ -14,7 +14,6 @@ import lombok.ToString;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 
 
 @Data
@@ -107,5 +106,30 @@ public class Customer {
 
         hotels.sort(Comparator.comparing(hotel -> hotel.getParksAround().size()));
         return hotels.getLast();
+    }
+
+    /**
+     *  Here is the implementation of the getAllPlacesInside method
+     */
+
+    public List<Place> getAllPlacesInside(
+            double minLongitude,
+            double maxLongitude,
+            double minLatitude,
+            double maxLatitude,
+            Map map
+    ) {
+        List<Place> places = new ArrayList<>();
+
+        for (Place place : map.getPlaces()) {
+            if ( (place.getCoordinates().getX() >= minLongitude
+                    && place.getCoordinates().getX() <= maxLongitude)
+                && (place.getCoordinates().getY() >= minLatitude
+                    && place.getCoordinates().getY() <= maxLatitude)
+            ) {
+                places.add(place);
+            }
+        }
+        return places;
     }
 }
