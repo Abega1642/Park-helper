@@ -75,6 +75,7 @@ public class Main {
 
         Map map = new Map(List.of(hotel, hotel2, hotel3, park1, park2));
 
+
         System.out.println(Yangus
                 .getAllPlacesInside(15.25, 29, 12, 13, map));
         System.out.println(Yangus.getAllReviewedItems(map) + " --");
