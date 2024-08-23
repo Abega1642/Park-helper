@@ -1,4 +1,13 @@
 package dev.razafindratelo.comments;
 
-public class Comment {
+
+import dev.razafindratelo.customer.Customer;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@AllArgsConstructor
+@Data
+public abstract class Comment {
+    private String content;
+    private Customer author;
 }
