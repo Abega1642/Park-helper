@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -17,15 +18,24 @@ public class Hotel extends Place {
     private String phoneNumber;
     private String email;
     private long score;
+    private List<Room> rooms;
     private List<Review> reviews;
 
     public Hotel(
             String name,
             double latitude,
             double longitude,
-            String description
+            String description,
+            String phoneNumber,
+            String email,
+            List<Room> rooms
     ) {
         super(name, latitude, longitude, description);
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.rooms = rooms;
+        this.score = 0;
+        this.reviews = new ArrayList<>();
     }
 
 }
