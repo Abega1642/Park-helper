@@ -14,10 +14,12 @@ public class Room {
     private String roomId;
     private double pricePerNight;
     private List<RoomReview> roomReviews;
+    private long score;
 
     public Room(String roomId, double pricePerNight) {
         this.roomId = roomId;
         this.pricePerNight = pricePerNight;
         this.roomReviews = new ArrayList<>();
+        this.score = 0;
     }
 }

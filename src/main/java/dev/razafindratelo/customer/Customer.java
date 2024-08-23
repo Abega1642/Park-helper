@@ -38,16 +38,23 @@ public class Customer {
     public Review addReview(PlaceReview review) {
         List<PlaceReview> placeReviews = review.getCommentedPlace().getReviews();
         placeReviews.add(review);
+
+        review.getCommentedPlace()
+                .setScore(review.getCommentedPlace().getScore() + review.getScore());
+
         review.getCommentedPlace().setReviews(placeReviews);
         return review;
     }
 
     // addReview to a precised place (might be a hotel or a park) by the description of the review
 
-    public Review addReview(String description, Place place) {
+    public Review addReview(String description,  int score, Place place) {
         List<PlaceReview> reviewsList = place.getReviews();
         PlaceReview review = new PlaceReview(description, this, place);
         reviewsList.add(review);
+
+        place.setScore(place.getScore() + score);
+
         place.setReviews(reviewsList);
         return review;
     }
@@ -63,9 +70,13 @@ public class Customer {
 
     // addReview to a room of a hotel by the description.
 
-    public Review addReview(String description, Hotel hotel, Room room) {
+    public Review addReview(String description, int score, Hotel hotel, String roomId) {
+        Room room = hotel.getRooms().stream().filter(r -> r.getRoomId() == roomId).findFirst().get();
+
         List<RoomReview> roomReviews = room.getRoomReviews();
+
         RoomReview review = new RoomReview(description, this, room);
+        room.setScore(room.getScore() + score);
         roomReviews.add(review);
         room.setRoomReviews(roomReviews);
         return review;
@@ -161,5 +172,31 @@ public class Customer {
         List<Room> rooms = hotels.getRooms();
         rooms.sort(Comparator.comparingDouble(Room::getPricePerNight));
         return rooms.getFirst();
+    }
+
+    /**
+     *  Here is the implementation of the getAllReviewedItems method
+     */
+
+    public List<Object> getAllReviewedItems (Map map) {
+        List<Object> reviewedItems = new ArrayList<>();
+        List<Place> places = map.getPlaces()
+                .stream()
+                .filter(place -> !place.getReviews().isEmpty())
+                .toList();
+        List<Room> rooms = new ArrayList<>();
+        for (Place place : places) {
+            if (place instanceof Hotel hotel) {
+                List<Room> roomsReviewedByEachHotel = hotel.getRooms()
+                        .stream()
+                        .filter(room -> !room.getRoomReviews().isEmpty())
+                        .toList();
+                rooms.addAll(roomsReviewedByEachHotel);
+            }
+        }
+        reviewedItems.addAll(rooms);
+        reviewedItems.addAll(places);
+
+        return reviewedItems;
     }
 }

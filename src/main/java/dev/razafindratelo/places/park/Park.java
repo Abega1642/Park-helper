@@ -2,6 +2,7 @@ package dev.razafindratelo.places.park;
 
 import dev.razafindratelo.places.Place;
 import dev.razafindratelo.places.hotel.Hotel;
+import dev.razafindratelo.reviews.PlaceReview;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import java.util.List;
 @ToString(callSuper = true)
 public class Park extends Place {
     private List<Hotel> hotels;
+
 
     public Park(
             String name,

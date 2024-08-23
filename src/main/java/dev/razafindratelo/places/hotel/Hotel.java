@@ -15,9 +15,7 @@ import java.util.List;
 public class Hotel extends Place {
     private String phoneNumber;
     private String email;
-    private long score;
     private List<Room> rooms;
-    private List<Review> reviews;
     private List<Park> parksAround;
 
     public Hotel(
@@ -34,8 +32,6 @@ public class Hotel extends Place {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.rooms = rooms;
-        this.score = 0;
-        this.reviews = new ArrayList<>();
         this.parksAround = parksAround;
     }
 
