@@ -1,14 +1,13 @@
 package dev.razafindratelo.places.hotel;
 
 import dev.razafindratelo.reviews.RoomReview;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode
 @ToString
 public class Room {
